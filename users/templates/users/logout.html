@@ -1,0 +1,14 @@
+{% extends "store/main.html"%}
+{% block content %}
+
+	<div class="container container-fluid content-section my-5 py-5 px-5 box-element-custom margin-bottom-max">
+		<h2>Tou have been logged out</h2>
+		<div class="border-top pt-3">
+		<small class="text-muted">
+			<a href="{% url 'login' %}">Log In Again</a>
+		</small>
+	</div>
+	</div>
+
+
+{% endblock content %}

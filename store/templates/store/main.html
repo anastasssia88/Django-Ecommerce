@@ -1,0 +1,176 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	 <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@300;500;600&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    <!-- My CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+
+
+    <!-- Getting token -->
+    <script type="text/javascript">
+      var user = '{{request.user}}'
+
+      function getToken(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+              }
+           }
+        }
+        return cookieValue;
+      }
+      var csrftoken = getToken('csrftoken');
+
+
+      /* Getting cookie for undefined user */
+      function getCookie(name) {
+        // Split cookie string and get all individual name=value pairs in an array
+        var cookieArr = document.cookie.split(";");
+
+        // Loop through the array elements
+        for(var i = 0; i < cookieArr.length; i++) {
+            var cookiePair = cookieArr[i].split("=");
+
+            /* Removing whitespace at the beginning of the cookie name
+            and compare it with the given string */
+            if(name == cookiePair[0].trim()) {
+                // Decode the cookie value and return
+                return decodeURIComponent(cookiePair[1]);
+            }
+        }
+
+        // Return null if not found
+        return null;
+    }
+    
+
+    /* Setting cart for undefined user */
+    var cart = JSON.parse(getCookie('cart'))
+    if (cart == undefined) {
+      cart = {}
+      console.log('Cart Created!', cart)
+      document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+    }
+    console.log('Cart:', cart)
+
+    </script>
+
+	<title>SnapStore</title>
+
+</head>
+<body>
+
+
+<!-- NAVIGATION -->
+<div class="nav-container">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark  px-5">
+    <div class="container py-2">
+
+      <!--<a class="navbar-brand" href="#">
+       <img src="{% static 'images/logo.png' %}" width="120" height="90" class="d-inline-block align-top" alt="">
+      </a> -->
+       <a class="navbar-brand" href="{% url 'store' %}">SnapStore.</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+       <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+           <li class="nav-item active">
+           <a class="nav-link" href="{% url 'store' %}">Shop<span class="sr-only">(current)</span></a>
+           </li>
+      
+      </ul>
+      
+      <div class="form-inline my-2 my-lg-0">
+        {% if user.is_authenticated %}
+          <a href="{% url 'profile' %}"class="nav-item nav-link">Profile</a> 
+          <a href="{% url 'logout' %}"class="nav-item nav-link">Logout</a>
+        {% else %}
+          <a href="{% url 'login' %}"class="nav-item nav-link mx-1">Login</a>
+          <a href="{% url 'register' %}"class="btn btn-warning mx-1">Register</a>
+        {% endif %}
+
+        <a href="{% url 'cart' %}">
+          <img  id="cart-icon" src="{% static 'images/cart.png' %}">
+        </a>
+        <p id="cart-total">{{ cartItems }}</p>
+
+      </div>
+      </div>
+    </div>
+  </nav>
+</div>
+
+      {% if messages %}
+        {% for message in messages %}
+        <div class="alert-{{ message.tags }} text-center custom-alert"> 
+          {{ message }}
+        </div>
+        {% endfor %}
+      {% endif %}
+
+       {% block content %}
+
+
+       {% endblock content %}
+       
+<!-- FOOTER -->
+<footer class="page-footer font-small black">
+
+  <div class="container container-fluid text-center">
+    <p class="white-text footer-text">
+      <a class="white-text footer-text" href="{% url 'register' %}">Sign Up</a>   |   <a class="white-text footer-text" href="{% url 'login' %}">Sign In</a><br>
+      info@snapstore.com | + 01 234 567 88 <br>
+      New York, NY 10012, US
+      <br>
+      <div class="footer-copyright text-center pt-1 footer-text">© 2020 Copyright:   SnapStore.
+      </div>
+
+    </p>
+
+  </div>
+
+  
+</footer>
+
+
+
+
+
+
+
+
+  <!-- JavaScript -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+
+</body>
+</html>
+
+
+

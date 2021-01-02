@@ -1,0 +1,159 @@
+{% extends "store/main.html"%}
+{% load static %}
+
+{% block content %}
+
+
+
+<!-- HERO SECTION-->
+<section class='hero py-5'>
+  <div class="container showcase">
+    <h1 class="text-left display-4 ml-4">Catch the moment</h1>
+    <img src="images/camera_1.png" class="img-responsive center-block d-block mx-auto"  alt="Camera" />
+    
+    <div class="info">
+      <h3 class="text-right white-text" style="text-shadow: 1px 1px 2px #000000;">Powers within your reach</h3>
+      <p class="text-right lead white-text pt-n5" style="text-shadow: 1px 1px 2px #000000;"> Through the right camera you have the power to catch the moment.</p>
+    </div>
+  </div>
+</section>
+ 
+
+
+<!-- CAMERAS -->
+<section class="products" id="shop">
+ 
+ <div class="container container-fluid my-5 py-5">
+ 	<!--<h2 class="items display-4">Cameras</h2>-->
+ 	<div class="row">
+
+ 		{% for product in products %}
+    	<div class="col-lg-4 col-md-6 mb-4">
+      		<div class="card h-100">
+      			<br>
+      			<br>
+      			<img class="thumbnail" src="{{product.imageURL}}">
+      			<div class="card-body">
+      				<h5><strong>{{ product.name }}</strong></h5>
+      				<hr>
+
+					<button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+					<a href="{% url 'product-detail' product.id %}" class="btn btn-outline-success">View</a>
+					<h4 style="display: inline-block; float: right"><strong>${{ product.price|floatformat:2 }}</strong></h4>
+      			</div>
+      		</div>
+    	</div>
+    	{% endfor %}
+
+  	</div>
+ </div> 
+</section>
+
+<!-- ABSOLUTE FAVORITE - VIDEO
+<section>
+<div class="my-5 content" id="video-bg">
+    <video id="videoBG" autoplay muted loop>
+      <source src="{% static 'videos/bg-camera-video.mp4'%}" type="video/mp4">
+    </video>
+
+    <h2 class="text-overlay">Absolute Favorite</h2>
+</div>
+
+</section>-->
+
+<!-- BEST DEAL -->
+
+<section class='gray-bg'>
+  <div class="container">
+    <div class="row py-5">
+    
+      <div class="col-lg-6">
+        <img src="{% static 'images/limited-offer.png' %}" class='img-fluid'> 
+      </div>
+
+      <div class="col-lg-6 mt-3">
+        <h4 class="white-text">Limited offer</h4>
+        <h2 class="white-text display-4">Leica M6 Original 35mm, Black</h2>
+        <br>
+
+        <div class="my-4">
+          <h4 class="white-text"><s>$2999.00</s></h5>
+          <h4 class="white-text h3">$2599.00</h4>
+        </div>
+        
+        <div class="my-5">
+          <a href="#" class="btn white-btn">Details &#x2192;</a>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ACCESSORIES -->
+<section class="products2">
+ 
+ <div class="container container-fluid my-5 py-5">
+  <h2 class="items display-4">Accessories:</h2>
+  <div class="row">
+
+    {% for product in products2 %}
+      <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100">
+            <br>
+            <br>
+            <img class="thumbnail" src="{{product.imageURL}}">
+            <div class="card-body">
+              <h5><strong>{{ product.name }}</strong></h5> 
+              <hr>
+
+          <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+          <a href="{% url 'product-detail' product.id %}" class="btn btn-outline-success">View</a>
+          <h4 style="display: inline-block; float: right"><strong>${{ product.price|floatformat:2 }}</strong></h4> 
+            </div>
+          </div>
+      </div>
+      {% endfor %}
+
+    </div>
+ </div> 
+</section>
+
+
+<!-- PHOTOS -->
+      
+<section class="gray-bg py-5">
+  <div class="container container-fluid py-5">
+    <h2 class="white-text display-4">Photos made with our cameras:</h2>
+
+    <div class="row py-3">
+
+      <div class="col col-lg-4">
+        <img src="{% static 'images/dog.jpg' %}" class='img-fluid my-3 gallery-img'>
+        <img src="{% static 'images/girl.jpg' %}" class='img-fluid  my-3 gallery-img'>
+      </div>
+
+      <div class="col col-lg-4">
+        <img src="{% static 'images/nature.jpg' %}" class='img-fluid my-3 gallery-img'>
+        <img src="{% static 'images/food.jpg' %}" class='img-fluid gallery-img'>
+      </div>
+
+      <div class="col col-lg-3">
+        <img src="{% static 'images/smiling-girl.jpg' %}" class='img-fluid my-3 gallery-img'>
+        <img src="{% static 'images/cat.jpg' %}" class='img-fluid gallery-img'>
+      </div>
+  </div>
+
+  </div>
+</section> 
+{% endblock content %}
+
+
+
+
+
+
+
+

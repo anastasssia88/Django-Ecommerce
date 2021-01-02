@@ -1,0 +1,130 @@
+{% extends "store/main.html"%}
+{% load static %}
+
+{% block content %}
+
+
+<!-- Info about product -->
+<section class="mb-4">
+  <div class="container container-fluid">
+    <div class="row">
+      
+      <div class="col-md-8 my-4">
+        <div class="box-element py-4 px-5">
+
+          <a  class="btn btn-outline-dark" href="{% url 'store' %}">&#x2190; Back to store</a>
+          <br>
+          <img class="img-fluid" src="{{product.imageURL}}">
+          <h4><strong>{{ product.name }}</strong></h4>
+          <hr>
+
+          <h5>Description:</h5>
+          <p>{{ product.description|linebreaks }}</p>
+          <br>
+
+          <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+          <a class="btn btn-outline-success" href="{% url 'checkout' %}">Checkout</a>
+          <h4 style="display: inline-block; float: right"><strong>${{ product.price|floatformat:2 }}</strong></h4>
+        </div>
+      </div>
+
+
+<!-- Sidebar -->
+      <div class="col-md-4 mt-4">
+        <div class="box-element py-4 px-4">
+           <h4>Best sellers:</h4>
+           <hr>
+
+              <!-- FLEX BOX similar items -->
+                {% for product in most_popular%} 
+                  <div class="sidebar-item grid-container">
+                        
+                        <div class="grid-item1">
+                          <img class="thumbnail thumbnail-custom" src="{{product.imageURL}}">
+                        </div>
+
+                        <div class="grid-item2">
+                          <a href="{% url 'product-detail' product.id %}"><p class="sidebar-text"><strong>{{ product.name }}</strong><p></a>
+                        </div>
+                                           
+                  </div>
+                {% endfor %}
+              
+
+
+      <!-- Sidebar 
+      <div class="col-md-4 mt-4">
+        <div class="box-element py-4 px-4">
+           <h4>Similar products:</h4>
+           <hr>
+
+               FLEX BOX similar items 
+              {% if product.price > 300 %}
+                  {% for product in products%} 
+                    <div class="sidebar-item grid-container">
+                          
+                          <div class="grid-item1">
+                            <img class="thumbnail thumbnail-custom" src="{{product.imageURL}}">
+                          </div>
+
+                          <div class="grid-item2">
+                            <a href="{% url 'product-detail' product.id %}"><p class="sidebar-text"><strong>{{ product.name }}</strong><p></a>
+                          </div>
+                                             
+                    </div>
+                  {% endfor %}
+
+              {% else %}
+                  {% for product in products2%}
+                    <div class="sidebar-item grid-container">
+                          
+                          <div class="grid-item1">
+                            <img class="thumbnail thumbnail-custom" src="{{product.imageURL}}">
+                          </div>
+
+                          <div class="grid-item2">
+                            <a href="{% url 'product-detail' product.id %}"><p class="sidebar-text"><strong>{{ product.name }}</strong><p></a>
+                          </div>
+                                             
+                    </div>
+                  {% endfor %} 
+
+              {% endif %}-->
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- PRODUCT 
+<section class="products">
+ 
+ <div class="container container-fluid my-5 py-5">
+ 	<h2 class="items display-4">Shop</h2>
+ 	<div class="row">
+
+    	<div class="col-lg-4 col-md-6 mb-4">
+      		<div class="card h-100">
+      			<br>
+      			<br>
+      			<img class="thumbnail" src="{{object.imageURL}}">
+      			<div class="card-body">
+      				<h5><strong>{{ object.name }}</strong></h5>
+      				<hr>
+
+					<button data-product="{{object.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+					<a class="btn btn-outline-success">View</a>
+					<h4 style="display: inline-block; float: right"><strong>${{ product.price|floatformat:2 }}</strong></h4>
+      			</div>
+      		</div>
+    	</div>
+
+  	</div>
+ </div> 
+</section>
+-->
+
+{% endblock content %}
