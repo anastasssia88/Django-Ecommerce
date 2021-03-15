@@ -17,6 +17,7 @@ pytz==2020.4
 sqlparse==0.4.1
 whitenoise==5.2.0
 
+# CLI commands
 #Run server
 python manage.py runserver
 
